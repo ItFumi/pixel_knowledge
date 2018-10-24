@@ -1,0 +1,12 @@
+<% if @comments %>
+  // index
+  $(".comment_edit_form .canvas_l_input").css("border-color","#e5e5e5");
+  $(".comment_edit_form .error_line").html("");
+  $(".comment_list").html('<%= j(render "index", { comments: @comments }) %>');
+<% else %>
+  // create destroy update
+  $(".comment_form .canvas_l_input").css("border-color","#e5e5e5");
+  $(".comment_form .error_line").html("");
+  $(".comment_list").html('<%= j(render "index", { comments: @comment.knowledge.comments }) %>');
+  $(".comment_form .canvas_l_input").val("");
+<% end %>

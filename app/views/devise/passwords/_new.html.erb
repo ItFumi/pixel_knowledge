@@ -1,0 +1,16 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), :html => {:id => "password_forgot_user", :method => "post"},:format => :json,:remote => true) do |f| %>
+  <ul>
+    <li class="modal_sign_item">
+      <%= f.label :email %><span></span>
+    </li>
+    <li>
+      <%= f.email_field :email, autocomplete: "email", class:"modal_sign_input" %>
+    </li>
+  </ul>
+  <div class="actions">
+    <%= f.submit "送信する", class:"btn btn-default submit_btn" %>
+  </div>
+  <div class="link_sign_in">
+    <%= link_to "ログインはこちら", "" %>
+  </div>
+<% end %>

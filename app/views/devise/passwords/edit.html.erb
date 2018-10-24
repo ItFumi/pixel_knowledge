@@ -1,0 +1,36 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+  <div class="profile_edit">
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.messages[:password][0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:password)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :password %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.password_field :password, autocomplete: "new-password", class:"modal_sign_input" %>
+      </li>
+    </ul>
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.messages[:password_confirmation][0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:password_confirmation)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :password_confirmation %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.password_field :password_confirmation, autocomplete: "off", class:"modal_sign_input" %>
+      </li>
+    </ul>
+    <div class="actions">
+      <%= f.submit "設定する", class:"btn btn-default submit_btn" %>
+    </div>
+  </div>
+<% end %>

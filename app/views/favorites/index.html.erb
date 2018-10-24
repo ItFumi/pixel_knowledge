@@ -1,0 +1,44 @@
+<% if user_signed_in? %>
+  <%= render "top/sign-in" %>
+<% else %>
+  <%= render "top/sign-out" %>
+<% end %>
+<%= search_form_for(@search, url: favorites_path) do |f| %>
+  <div class="search_form">
+    <div class="inner">
+      <%= f.text_field(:title_or_content_cont, class:"search_input", placeholder: "検索ワードを入力してください。") %>
+      <%= button_tag sanitize('<i class="fa fa-search"></i>'), type:"submit", class:"search_btn" %>
+    </div>
+  </div>
+<% end %>
+<div class="work_list inner">
+  <h2 class="contents-title">お気に入り一覧</h2>
+  <div class="knowledge_list">
+    <% if @knowledge.present? %>
+      <% @knowledge.each do |knowledge| %>
+        <div class="knowledge_box_wrap">
+          <div class="knowledge_box">
+            <%= link_to post_path(knowledge.id), class:"knowledge_box_link" do %>
+              <h3><%= knowledge.title %></h3>
+            <% end %>
+            <%= link_to image_tag(knowledge.steps.first.picture_url), post_path(knowledge.id), class:"knowledge_box_image" %>
+            <div class="author_wrap">
+              <span class="author_image">
+                <% if knowledge.user.user_image.present? %>
+                  <%= image_tag knowledge.user.user_image, alt:knowledge.user.name+"さんのアイコン画像" %>
+                <% else %>
+                  <%= image_tag "/images/blank_icon.png" %>
+                <% end %>
+              </span>
+              <span class="author_name"><%= knowledge.user.name %></span>
+            </div>
+            <div class="create_day"><%= knowledge.updated_at.in_time_zone("Tokyo").strftime("%Y-%m-%d") %></div>
+          </div>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="empty_alert">お気に入りの知識が存在しません</div>
+    <% end %>
+  </div>
+  <%= paginate @knowledge %>
+</div>

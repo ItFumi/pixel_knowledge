@@ -1,0 +1,62 @@
+<div class="show_area">
+  <div class="show_area_wrap">
+    <div class="knowledge_info_area">
+      <div class="user_image">
+        <% if @knowledge.user.user_image.present? %>
+          <%= image_tag @knowledge.user.user_image, alt:@knowledge.user.name+"さんのアイコン画像" %>
+        <% else %>
+          <%= image_tag "/images/blank_icon.png" %>
+        <% end %>
+      </div>
+      <div class="user_status">
+        <div class="user_name"><%= @knowledge.user.name %></div>
+        <div>投稿数 : <%= @knowledge.user.knowledges.count %></div>
+      </div>
+      <h2 class="knowledge_title"><%= @knowledge.title %></h2>
+      <div class="knowledge_content"><%= @knowledge.content %></div>
+    </div>
+    <ul class="bxslider">
+      <% @knowledge.steps.order("id DESC").each{|step, i| %>
+        <li>
+          <%= image_tag step.picture_url, alt:"さんのアイコン画像" %>
+          <span class="knowledge_step_comment"><%= step.comment %></span>
+        </li>
+      <% } %>
+    </ul>
+    <div class="knowledge_option_area">
+      <div class="knowledge_good">
+        <% if user_signed_in? && @knowledge.user.id != current_user.id %>
+          <% if @favorite.present? %>
+            <%= link_to post_favorite_path(@favorite.knowledge_id, @favorite.id), method: :delete, remote: true do %>
+              <i class="fa fa-heart"></i> いいね解除 <span><%= @knowledge.favorites.count %></span>件
+            <% end %>
+          <% else %>
+            <%= link_to post_favorites_path(@knowledge.id), method: :post, remote: true do %>
+              <i class="fa fa-heart"></i> いいね <span><%= @knowledge.favorites.count %></span>件
+            <% end %>
+          <% end %>
+        <% else %>
+          <i class="fa fa-heart"></i> いいね <%= @knowledge.favorites.count %>件
+        <% end %>
+      </div>
+      <% if user_signed_in? && @knowledge.user.id == current_user.id %>
+        <div class="knowledge_links">
+          <%= link_to "編集する", edit_post_path(@knowledge.id) %>・<%= link_to "削除する", post_path(@knowledge.id), data: { title: "削除の確認", confirm: "知識を削除しますか？", cancel: "閉じる", commit: "削除する" }, method: :delete %>
+        </div>
+      <% end %>
+    </div>
+    <div class="knowledge_comment_area">
+      <h3>コメント</h3>
+      <%= render partial: "comments/index", locals: { comments: @comments } %>
+      <% if user_signed_in? %>
+        <%= form_with(model: @comment, url: post_comments_path(@knowledge.id), method: :post, remote: true) do |f| %>
+          <div class="comment_form">
+            <%= f.text_area(:content, class:"canvas_l_input") %>
+            <div class="error_line"></div>
+            <%= f.submit "コメントを投稿する", class:"btn btn-default submit_btn" %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

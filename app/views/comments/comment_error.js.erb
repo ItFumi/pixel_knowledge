@@ -1,0 +1,9 @@
+<% if action_name == "create" %>
+  // create
+  $(".comment_form .canvas_l_input").css("border-color","#f00");
+  $(".comment_form .error_line").html("<%= @comment.errors.full_messages_for(:content)[0] %>");
+<% else %>
+  // update
+  $(".comment_edit_form .canvas_l_input").css("border-color","#f00");
+  $(".comment_edit_form .error_line").html("<%= @comment.errors.full_messages_for(:content)[0] %>");
+<% end %>

@@ -1,0 +1,33 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => {:id => "sign_in_user"},:format => :json,:remote => true) do |f| %>
+  <p class="sign_in_error"></p>
+  <ul>
+    <li class="modal_sign_item">
+      <%= f.label :email %>
+    </li>
+    <li>
+      <%= f.email_field(:email, autocomplete: "email", class:"modal_sign_input") %>
+    </li>
+  </ul>
+  <ul>
+    <li class="modal_sign_item">
+      <%= f.label :password %>
+    </li>
+    <li>
+      <%= f.password_field(:password, autocomplete: "current-password", class:"modal_sign_input") %>
+    </li>
+  </ul>
+  <% if devise_mapping.rememberable? -%>
+    <div class="field remember_me">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end -%>
+  <div class="actions">
+    <%= f.submit "ログイン", class:"btn btn-default submit_btn" %>
+  </div>
+  <div class="link_password_forgot">
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+      <%= link_to "パスワードをお忘れですか?" %>
+    <% end -%>
+  </div>
+<% end %>

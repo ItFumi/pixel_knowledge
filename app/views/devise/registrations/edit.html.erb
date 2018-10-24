@@ -1,0 +1,85 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <div class="profile_edit">
+    <ul>
+      <li class="modal_sign_item">
+        <%= f.label :user_image %>
+      </li>
+      <li class="user_image">
+        <% if current_user.user_image.present? %>
+          <%= image_tag current_user.user_image, alt:current_user.name+"さんのアイコン画像" %>
+        <% else %>
+          <%= image_tag "/images/blank_icon.png" %>
+        <% end %>
+      </li>
+      <% if current_user.user_image.present? %>
+        <span class="remove_user_image"><%= f.check_box :remove_user_image %> 画像を削除する</span>
+      <% end %>
+      <label class="upload_image" for="user_image">
+        <span class="upload_image_name">画像を選択する</span>
+        <%= f.file_field :user_image, id:"user_image", style:"display:none" %>
+      </label>
+    </ul>
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.messages[:name][0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:name)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :name %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.text_field(:name, autocomplete: "name", class:"modal_sign_input") %>
+      </li>
+    </ul>
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.messages[:email][0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:email)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :email %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.email_field(:email, autocomplete: "email", class:"modal_sign_input") %>
+      </li>
+    </ul>
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.full_messages_for(:password)[0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:password)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :password %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.password_field(:password, autocomplete: "new-password", class:"modal_sign_input") %>
+      </li>
+    </ul>
+    <ul>
+      <li class="modal_sign_item">
+        <% if resource.errors.full_messages_for(:password_confirmation)[0] %>
+          <span class="error_line">
+            <%= resource.errors.full_messages_for(:password_confirmation)[0] %>
+          </span>
+        <% else %>
+          <%= f.label :password_confirmation %>
+        <% end %>
+      </li>
+      <li>
+        <%= f.password_field(:password_confirmation, autocomplete: "new-password", class:"modal_sign_input") %>
+      </li>
+    </ul>
+    <div class="actions">
+      <%= f.submit "更新する", class:"btn btn-default submit_btn" %>
+    </div>
+  </div>
+<% end %>
+<div class="profile_edit">
+  <%= link_to "退会する", registration_path(resource_name), data: { title: "退会の確認", confirm: "PixelKnowledgeから退会しますか？", cancel: "閉じる", commit: "退会する" }, method: :delete, class:"btn btn-default submit_btn" %>
+</div>

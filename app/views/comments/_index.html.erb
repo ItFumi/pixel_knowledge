@@ -1,0 +1,27 @@
+<% if comments.present? %>
+  <ul class="comment_list">
+    <% comments.each do |comment| %>
+      <li id="comment<%= comment.id %>" class="comment_item">
+        <div class="comment_user_image">
+          <% if comment.user.user_image.present? %>
+            <%= image_tag comment.user.user_image, alt:comment.user.name+"さんのアイコン画像" %>
+          <% else %>
+            <%= image_tag "/images/blank_icon.png" %>
+          <% end %>
+        </div>
+        <div class="comment_user_status">
+          <div class="comment_user_name"><%= comment.user.name %></div>
+          <div class="comment_text"><%= comment.content %></div>
+          <div class="comment_create_day"><%= comment.created_at.in_time_zone("Tokyo").strftime("%Y-%m-%d %H:%M:%S") %></div>
+          <% if comment.user == current_user %>
+            <div class="comment_links">
+              <%= link_to "編集する", edit_post_comment_path(comment.knowledge_id, comment.id), remote: true %>・<%= link_to "削除する", post_comment_path(comment.knowledge_id, comment.id), data: { title: "削除の確認", confirm: "コメントを削除しますか？", cancel: "閉じる", commit: "削除する" }, method: :delete, remote: true %>
+            </div>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="empty_alert">コメントが存在しません</div>
+<% end %>

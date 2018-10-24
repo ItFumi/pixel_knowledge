@@ -1,0 +1,11 @@
+<div class="comment_user_name"><%= comment.user.name %></div>
+<%= form_with(model: comment, url: post_comment_path(comment.knowledge_id, comment.id), remote: true) do |f| %>
+  <div class="comment_edit_form">
+    <%= f.text_area(:content, class:"canvas_l_input") %>
+    <div class="error_line"></div>
+    <div>
+      <%= link_to "キャンセル", post_comments_path, class:"btn btn-default submit_btn", remote: true %>
+      <%= f.submit "保存する", class:"btn btn-default submit_btn" %>
+    </div>
+  </div>
+<% end %>

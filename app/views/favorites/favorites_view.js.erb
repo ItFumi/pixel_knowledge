@@ -1,0 +1,5 @@
+<% if action_name == "create" %>
+  $(".knowledge_good").html('<%= link_to post_favorite_path(@favorite.knowledge_id, @favorite.id), method: :delete, remote: true do %><i class="fa fa-heart"></i> いいね解除 <span><%= @knowledge.favorites.count %></span>件<% end %>');
+<% else %>
+  $(".knowledge_good").html('<%= link_to post_favorites_path(@knowledge.id), method: :post, remote: true do %><i class="fa fa-heart"></i> いいね <span><%= @knowledge.favorites.count %></span>件<% end %>');
+<% end %>
