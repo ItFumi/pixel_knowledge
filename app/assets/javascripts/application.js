@@ -10,9 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery/dist/jquery.js
 //= require bootstrap/bootstrap-tooltip
 //= require rails-ujs
-//= require jquery/dist/jquery.js
 //= require bootstrap/dist/js/bootstrap.min
 //= require data-confirm-modal
 //= require_tree .
