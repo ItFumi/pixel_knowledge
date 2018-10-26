@@ -7,7 +7,7 @@ class SessionsController < Devise::SessionsController
 
   def create
     session['user_auth'] = params[:user]
-    resource = warden.authenticate!(:scope => resource_name, :recall => "#{controller_path}#failure")
+    resource = warden.authenticate!(scope: resource_name, recall: "#{controller_path}#failure")
 
     sign_in(resource_name, resource)
     message = I18n.t 'devise.sessions.signed_in'
@@ -15,7 +15,7 @@ class SessionsController < Devise::SessionsController
     yield resource if block_given?
 
     if request.xhr?
-     return render :json => {:success => true, :login => true, :message => message}
+     return render json: {success: true, login: true, message: message}
     else
       respond_with resource, location: after_sign_in_path_for(resource)
     end
@@ -26,7 +26,7 @@ class SessionsController < Devise::SessionsController
     message = I18n.t 'devise.failure.invalid', authentication_keys: "メールアドレス"
     respond_to do |format|
       format.json {
-        render :json => {:success => false, :message => message, :cause => 'invalid'}
+        render json: {success: false, message: message, cause: 'invalid'}
       }
       format.html {
         redirect_to '/users/sign_in'

@@ -4,7 +4,7 @@ class PasswordsController < Devise::PasswordsController
   def new
     redirect_to root_path
   end
-  
+
   def create
     self.resource = resource_class.send_reset_password_instructions(resource_params)
 
@@ -15,7 +15,7 @@ class PasswordsController < Devise::PasswordsController
     else
       messages = resource.errors.messages
       if request.xhr?
-        return render :json => {:success => false, :messages => messages}
+        return render json: {success: false, messages: messages}
       else
         respond_with resource
       end

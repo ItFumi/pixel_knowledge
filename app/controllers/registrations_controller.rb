@@ -16,7 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
         flash[:notice] = message
         sign_up(resource_name, resource)
         if request.xhr?
-          return render :json => {:success => true, :messages => message}
+          return render json: {success: true, messages: message}
         else
           respond_with resource, location: after_sign_up_path_for(resource)
         end
@@ -24,7 +24,7 @@ class RegistrationsController < Devise::RegistrationsController
         messages = find_message(:"signed_up_but_#{resource.inactive_message}" )
         expire_data_after_sign_in!
         if request.xhr?
-         return render :json => {:success => true, :messages => message}
+         return render json: {success: true, messages: message}
         else
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
@@ -33,7 +33,7 @@ class RegistrationsController < Devise::RegistrationsController
       clean_up_passwords resource
       messages = resource.errors.messages
       if request.xhr?
-       return render :json => {:success => false, :messages => messages}
+       return render json: {success: false, messages: messages}
       else
         respond_with resource
       end

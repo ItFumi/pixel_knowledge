@@ -17,7 +17,7 @@ class PostsController < ApplicationController
     @knowledge.user_id = current_user.id
     step_count = params["step"].to_i
     for i in 0..step_count-1 do
-      @knowledge.steps_attributes = {i=>{"picture"=>base64_conversion(params["picture"+i.to_s],"step"+i.to_s+Time.now.strftime("%Y%m%d%H%M%S").to_s),"comment"=>params["comment"+i.to_s],"canvas_obj"=>params["canvas"+i.to_s]}}
+      @knowledge.steps_attributes = {i:{picture: base64_conversion(params["picture"+i.to_s],"step"+i.to_s+Time.now.strftime("%Y%m%d%H%M%S").to_s), comment: params["comment"+i.to_s], canvas_obj: params["canvas"+i.to_s]}}
     end
     respond_to do |format|
       if @knowledge.save
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
     end
     step_count = params["step"].to_i
     for i in 0..step_count-1 do
-      @knowledge.steps_attributes = {i=>{"id"=>params["id"+i.to_s],"picture"=>base64_conversion(params["picture"+i.to_s],"step"+i.to_s+Time.now.strftime("%Y%m%d%H%M%S").to_s),"comment"=>params["comment"+i.to_s],"canvas_obj"=>params["canvas"+i.to_s]}}
+      @knowledge.steps_attributes = {i:{id: params["id"+i.to_s], picture: base64_conversion(params["picture"+i.to_s],"step"+i.to_s+Time.now.strftime("%Y%m%d%H%M%S").to_s), comment: params["comment"+i.to_s], canvas_obj: params["canvas"+i.to_s]}}
     end
     respond_to do |format|
       if @knowledge.update(knowledge_params)

@@ -287,7 +287,6 @@ function post_canvas() {
       for (var j = logs.length-1; j >= 0; j--) {
         // コメントが存在 = ステップとして記録している場合、True
         if (logs[j]["comment"] !== undefined) {
-          logs[0]["canvas_entity"] = JSON.stringify(canvas);
           myStorage.setItem("log", JSON.stringify(logs));
           // FormDataにイメージのデータを追加
           fd.append("picture"+i, logs[j]["canvas_img_base64"]);

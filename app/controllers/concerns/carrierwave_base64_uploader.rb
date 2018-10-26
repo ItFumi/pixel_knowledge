@@ -13,7 +13,7 @@ module CarrierwaveBase64Uploader
     temp_img_file << image_data_binary
     temp_img_file.rewind
 
-    img_params = {:filename => "#{filename}.#{image_data[:extension]}", :type => image_data[:type], :tempfile => temp_img_file}
+    img_params = {filename: "#{filename}.#{image_data[:extension]}", type: image_data[:type], tempfile: temp_img_file}
     ActionDispatch::Http::UploadedFile.new(img_params)
   end
 
