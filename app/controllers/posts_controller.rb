@@ -36,7 +36,11 @@ class PostsController < ApplicationController
   end
 
   def edit
-    gon.steps = @knowledge.steps.order("id DESC")
+    if current_user.id == @knowledge.user_id
+      gon.steps = @knowledge.steps.order("id DESC")
+    else
+      redirect_back(fallback_location: post_path(@knowledge.id))
+    end
   end
 
   def update
