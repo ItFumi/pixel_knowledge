@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users, controllers: { sessions: "sessions", passwords: "passwords", registrations: "registrations" }
+  resources :users, only: [:show]
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"

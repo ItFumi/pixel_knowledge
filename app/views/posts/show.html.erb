@@ -9,7 +9,13 @@
         <% end %>
       </div>
       <div class="user_status">
-        <div class="user_name"><%= @knowledge.user.name %></div>
+        <div class="user_name">
+          <% if user_signed_in? %>
+            <%= link_to @knowledge.user.name, user_path(@knowledge.user.id) %>
+          <% else %>
+            <%= @knowledge.user.name %>
+          <% end %>
+        </div>
         <div>投稿数 : <%= @knowledge.user.knowledges.count %></div>
       </div>
       <h2 class="knowledge_title"><%= @knowledge.title %></h2>

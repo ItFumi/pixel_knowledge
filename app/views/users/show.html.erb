@@ -1,5 +1,9 @@
-<%= render "top/sign-in" %>
-<%= search_form_for(@search, url: favorites_path) do |f| %>
+<% if user_signed_in? %>
+  <%= render "top/sign-in" %>
+<% else %>
+  <%= render "top/sign-out" %>
+<% end %>
+<%= search_form_for(@search, url: user_path) do |f| %>
   <div class="search_form">
     <div class="inner">
       <%= f.text_field(:title_or_content_cont, class:"search_input", placeholder: "検索ワードを入力してください。") %>
@@ -8,7 +12,7 @@
   </div>
 <% end %>
 <div class="work_list inner">
-  <h2 class="contents-title">お気に入り一覧</h2>
+  <h2 class="contents-title">知識一覧</h2>
   <div class="knowledge_list">
     <% if @knowledge.present? %>
       <% @knowledge.each do |knowledge| %>
@@ -33,7 +37,7 @@
         </div>
       <% end %>
     <% else %>
-      <div class="empty_alert">お気に入りの知識が存在しません</div>
+      <div class="empty_alert">知識が存在しません</div>
     <% end %>
   </div>
   <%= paginate @knowledge %>
