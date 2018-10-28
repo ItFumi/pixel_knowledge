@@ -143,16 +143,35 @@ $(function() {
       alert("画像ファイルを指定してください。");
       return false;
     }
+    $(".upload_image_name").text(file.name).css("color","#333");
+    var image = new Image();
     var reader = new FileReader();
     reader.onload = function(f) {
-      var data = f.target.result;
-      fabric.Image.fromURL(data, function(img) {
-        image = img.set({ left: 0, top: 0 })
-        canvas.add(image);
-        canvas.renderAll();
-      });
-    };
-    canvas.isDrawingMode = false;
+      image.onload = function() {
+        if (image.width > image.height) {
+          var w = 400;
+          if (image.width < 400) {
+            w = image.width;
+          }
+          var ratio = w / image.width;
+          var h = image.height * ratio;
+        } else {
+          var h = 400;
+          if (image.height < 400) {
+            h = image.height;
+          }
+          var ratio = h / image.height;
+          var w = image.width * ratio;
+        }
+
+        var resize_canvas = $("#resize_canvas");
+        var resize_ctx = resize_canvas[0].getContext("2d");
+        $("#resize_canvas").attr("width", w);
+        $("#resize_canvas").attr("height", h);
+        resize_ctx.drawImage(image, 0, 0, w, h);
+      }
+      image.src = f.target.result;
+    }
     reader.readAsDataURL(file);
   });
 
@@ -332,6 +351,31 @@ function text_insert() {
     fill: select_text_color
   });
   canvas.add(text);
+  canvas.isDrawingMode = false;
+}
+function image_insert() {
+  // 選択画像を取得
+  var select_image = $("#canvas_image").val();
+  $("#canvas_image").val("");
+  $(".upload_image_name").text("画像を選択する").css("color","#999");
+  // 画像が選択されていない場合エラー
+  if (select_image == "") {
+    alert("画像を選択してください。");
+    return false;
+  }
+  var resize_canvas = $("#resize_canvas");
+  originalBinary = resize_canvas[0].toDataURL("image/jpeg");
+
+  if (5000 <= originalBinary.length) {
+    var capacityRatio = 5000 / originalBinary.length;
+    var processingBinary = resize_canvas[0].toDataURL("image/jpeg", capacityRatio);
+  }
+  console.log(processingBinary.length);
+  fabric.Image.fromURL(processingBinary, function(img) {
+    images = img.set({ left: 0, top: 0 })
+    canvas.add(images);
+    canvas.renderAll();
+  });
   canvas.isDrawingMode = false;
 }
 function update_prev_canvas() { // Canvasの状態を1つ前の状態に戻す
