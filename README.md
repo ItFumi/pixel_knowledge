@@ -35,6 +35,9 @@ https://pixel-knowledge.herokuapp.com/
   - ユーザー別検索
   - お気に入り内検索
 
+## 設計関連資料
+https://docs.google.com/spreadsheets/d/1OKKD-mg1uxAmhCt0zRDAJ8zGpGthYS1l24ELxJJnBr8/edit?usp=sharing
+
 ## 動作環境
 - MacOS High Sierra 10.13
 - Google Chrome 69.0
