@@ -1,24 +1,48 @@
-# README
+# Pixel Knowledge (ピクセル ナレッジ)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## URL
+https://pixel-knowledge.herokuapp.com/
 
-Things you may want to cover:
+## 概要
+「サイト上で描ける」知識共有サイト
 
-* Ruby version
+## コンセプト
+「描く･添える･手順化」あなたの知識定着化を助けます
 
-* System dependencies
+## 機能
+- 描画機能
+  - 描画線サイズ変更
+  - 描画線カラー変更
 
-* Configuration
+  - テキスト挿入機能
+    - テキストサイズ変更
+    - テキストカラー変更
 
-* Database creation
+  - 画像挿入機能
 
-* Database initialization
+  - UNDO･REDO機能
+  - SNAP機能
 
-* How to run the test suite
+- 共有機能
+  - いいね付与
+  - コメント投稿
 
-* Services (job queues, cache servers, search engines, etc.)
+- 知識絞込み表示機能
+  - ユーザー別表示
+  - お気に入りのみ表示
 
-* Deployment instructions
+- 知識検索機能
+  - ユーザー別検索
+  - お気に入り内検索
 
-* ...
+## 動作環境
+- MacOS High Sierra 10.13
+- Google Chrome 69.0
+
+## バージョン
+- Ruby 2.3.0
+- Rails 5.1.6
+- PostgreSQL 10.4
+
+## 制作者
+@ItFumi
