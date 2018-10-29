@@ -1,5 +1,5 @@
-<% if comments.present? %>
-  <ul class="comment_list">
+<ul class="comment_list">
+  <% if comments.present? %>
     <% comments.each do |comment| %>
       <li id="comment<%= comment.id %>" class="comment_item">
         <div class="comment_user_image">
@@ -21,7 +21,7 @@
         </div>
       </li>
     <% end %>
-  </ul>
-<% else %>
-  <div class="empty_alert">コメントが存在しません</div>
-<% end %>
+  <% else %>
+    <div class="empty_alert">コメントが存在しません</div>
+  <% end %>
+</ul>

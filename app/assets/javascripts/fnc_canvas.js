@@ -370,7 +370,6 @@ function image_insert() {
     var capacityRatio = 5000 / originalBinary.length;
     var processingBinary = resize_canvas[0].toDataURL("image/jpeg", capacityRatio);
   }
-  console.log(processingBinary.length);
   fabric.Image.fromURL(processingBinary, function(img) {
     images = img.set({ left: 0, top: 0 })
     canvas.add(images);
@@ -416,6 +415,8 @@ function update_canvas() {
   var comment = $("#knowledge_comment").val();
   // 現在のcanvasの状態を取得
   var canvas_img_base64 = canvas.toDataURL();
+  // 保存したcanvasを履歴欄に表示
+  $(".step_images img").eq(index).attr("src", canvas_img_base64);
 
   var canvas_entity = JSON.stringify(canvas);
 
@@ -449,8 +450,6 @@ function update_canvas() {
     myStorage.setItem("log", JSON.stringify(logs));
   }
 
-  // 保存したcanvasを履歴欄に表示
-  $(".step_images img").eq(index).attr("src", canvas_img_base64);
   var rect = new fabric.Rect({width:0});
   canvas.add(rect);
 }
