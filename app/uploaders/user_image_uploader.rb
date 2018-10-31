@@ -4,8 +4,14 @@ class UserImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   # Choose what kind of storage to use for this uploader:
-  storage :file
-  # storage :fog
+  if Rails.env.development?
+    storage :file
+  elsif Rails.env.test?
+    storage :file
+  else
+    storage :fog
+  end
+  
   process :resize_to_limit => [150, 150]
 
   # Override the directory where uploaded files will be stored.
