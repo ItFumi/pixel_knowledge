@@ -132,8 +132,8 @@ $(function() {
   });
   $(".comment_input").keyup(function() {
     var txtcount = $(this).val().length;
-    if (txtcount > 100) {
-      alert("コメントは100文字以内で入力してください");
+    if (txtcount > 90) {
+      alert("コメントは90文字以内で入力してください");
     }
   });
 

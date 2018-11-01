@@ -23,7 +23,6 @@ ul.bxslider {
 }
 .bx-viewport {
   /*fix other elements on the page moving (on Chrome)*/
-  height: 484px !important;
   -webkit-transform: translatez(0);
 }
 /** THEME
